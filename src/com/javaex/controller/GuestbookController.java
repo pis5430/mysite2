@@ -67,7 +67,7 @@ public class GuestbookController extends HttpServlet {
 			System.out.println("방명록 삭제");
 			
 		    //패스워드 값을 받아와야함 (password)
-			String password = request.getParameter("password");
+			String password = request.getParameter("pass");
 			int no = Integer.parseInt(request.getParameter("no"));
 					
 			GuestBookVo guestVo = new GuestBookVo(no ,password); //vo안에 넣어줌
@@ -81,12 +81,12 @@ public class GuestbookController extends HttpServlet {
 				 System.out.println("비밀번호가 틀립니다.");
 
 				 //포워드를 유틸에 넣어서 포워드 메소드로 이용하기
-				 WebUtil.forward(request, response, "/mysite2/gbc?action=deleteForm");
-				 //request.setAttribute("count", count);
+				 WebUtil.forward(request, response, "/WEB-INF/views/guestbook/deleteForm.jsp");
+				 //실패문구 나오게 하는걸 실패해서 일단은 deleteForm화면이 나오도록 설정함
 				 
 			}else {//삭제성공
 				
-				 WebUtil.rdirecte(request, response, "/mysite2/gbc?action=deleteForm");// WebUtil사용
+				 WebUtil.rdirecte(request, response, "/mysite2/gbc?action=addList");// WebUtil사용
 			}
 			  // count값 여부로 삭제 성공 , 삭제 실패를 나타낼수 있다. 페이지를 따로 만들지 않고 
 			  // count값을 deleteForm으로 보내줘서 실패했습니다. 문구를 표기하는법 attribute 시도

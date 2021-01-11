@@ -73,7 +73,7 @@
             <!-- //content-head -->
 
 			<div id="guestbook">
-				<form action="" method="get">
+				<form action="/mysite2/gbc" method="get">
 					<table id="guestDelete">
 						<colgroup>
 							<col style="width: 10%;">
@@ -84,8 +84,9 @@
 						<tr>
 							<td>비밀번호</td>
 							<td><input type="password" name="pass"></td>
+							<!-- pass값을 delete에서 getParameter값으로 불러와서 비밀번호 확인 -->
 							<td class="text-left"><button type="submit">삭제</button></td>
-							<td><a href="/mysite2/gbc">[메인으로 돌아가기]</a></td>
+							<td><a href="/mysite2/gbc?action=addList">[메인으로 돌아가기]</a></td>
 						</tr>
 					</table>
 					<!-- %표시가 있는채로는 주석처리가 제대로 안되서...
@@ -96,7 +97,7 @@
 						
 					} -->
 					
-					<!-- no값과 action값 -->
+					<!-- action값 delete / no값과, pass값으로 비밀번호 확인 -->
 					<input type='hidden' name="action" value="delete">
 					<input type='hidden' name="no" value="<%=no %>">
 				</form>	
