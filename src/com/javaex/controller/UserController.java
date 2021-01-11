@@ -19,9 +19,10 @@ public class UserController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
+		// method="post" 일때 한글깨짐 현상을 해결하는 법 , getParameter 전에 실행시켜야한다.
+		request.setCharacterEncoding("UTF-8"); 
+		
 		System.out.println("UserController");
-		
-		
 		
 		String action = request.getParameter("action");
 		System.out.println("action=" + action); //action값 확인
