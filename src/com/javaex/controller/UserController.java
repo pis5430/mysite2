@@ -29,7 +29,9 @@ public class UserController extends HttpServlet {
 		System.out.println("action=" + action); //action값 확인
 		
 		
-		if("joinForm".equals(action)) {
+		if("joinForm".equals(action)) { //
+			
+			System.out.println("회원가입 폼");
 
 			//indev.html 포워드(유틸이용)
 			WebUtil.forward(request, response, "/WEB-INF/views/user/joinForm.jsp");
@@ -61,13 +63,60 @@ public class UserController extends HttpServlet {
 			WebUtil.forward(request, response, "/WEB-INF/views/user/joinOk.jsp");
 
 
-		}else if("modifyForm".equals(action)) {
+		}else if("modifyForm".equals(action)) { // 수정품 , 수정기능 , no값으로 전체정보를 불러오는 기능
+			//수정폼에 갓을때 id가 표시 되어야함 --> modify 기능으로 들어가기전에 표시되야함
+			//순서중요 메인 -> 로그인폼 -> 회원정보수정 
+			
 			System.out.println("수정 폼");
 			
+			//힌트 : session에 있는 no값을 불러와야 한다.
+			HttpSession session = request.getSession();
+			UserVo auth = (UserVo)session.getAttribute("authUser"); 
+			System.out.println("authVo :" + auth.toString());
+			//형변환
+			//로그인 표시할때 사용하는 authUser에서 no값 가져오기
+			
+			//dao
+			UserDao userDao = new UserDao();
+			
+			//유저 한명 정보의 no를 불러옴 getUserNo() -->한명을 불러오는 값은 필요함. 
+			UserVo userVo = userDao.getUserNo(auth.getNo()); // no값에 해당하는 한명의 정보
+			System.out.println("userVo :" + userVo);
+			
+			
+			//한명의 정보를 modifyForm에서 각각의 값을 불러올수 잇도록 보내줘야함
+			request.setAttribute("userNo", userVo);			
 			
 			//포워드 --> joinOk.jsp
 			WebUtil.forward(request, response, "/WEB-INF/views/user/modifyForm.jsp");
 
+		}else if("modify".equals(action)) {
+			
+			//error:java.sql.SQLSyntaxErrorException: ORA-00971: missing SET keyword
+			//수정이 안됨
+			
+			System.out.println("수정");
+			
+			//파라미터  id는 변경못함 no는 섹션에서
+			String id = request.getParameter("id");
+			String pw = request.getParameter("pw");
+			String name = request.getParameter("name");
+			String gender = request.getParameter("gender");
+			//int no = Integer.parseInt(request.getParameter("no"));
+			
+			UserVo userVo = new UserVo(id,pw,name,gender);
+			UserDao userDao = new UserDao();
+			
+			userDao.UserModify(userVo);
+			System.out.println(userVo);
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("userVo", userVo);
+			
+			//WebUtil.rdirecte(request, response, "/mysite2/main");
+			
+			WebUtil.rdirecte(request, response, "/mysite2/user?action=modifyForm");// WebUtil사용
+			
 		}else if("login".equals(action)) {
 			
 			System.out.println("로그인 ");
@@ -92,6 +141,7 @@ public class UserController extends HttpServlet {
 	
 				HttpSession session = request.getSession();
 				session.setAttribute("authUser", authVo);
+				System.out.println(authVo);
 				
 				WebUtil.rdirecte(request, response, "/mysite2/main");
 			

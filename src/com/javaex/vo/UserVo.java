@@ -24,7 +24,11 @@ public class UserVo {
 		this.name = name;
 	}
 
-
+	public UserVo(String password, String name, String gender) {
+		this.password = password;
+		this.name = name;
+		this.gender = gender;
+	}
 	
 	
 	public UserVo(String id, String password, String name, String gender) {

@@ -2,12 +2,15 @@
 
 <%@ page import="java.util.List" %>
 <%@ page import="com.javaex.vo.GuestBookVo" %>
+<%@ page import="com.javaex.vo.UserVo" %>
 
 
 <%
 	List<GuestBookVo> guestList = (List<GuestBookVo>)request.getAttribute("gList");
 	System.out.println("======addList.jsp======");
 	System.out.println( "guestList :" + guestList.toString());
+	
+	UserVo authUser = (UserVo)session.getAttribute("authUser");
 %>
 
 <!DOCTYPE html>
@@ -28,10 +31,19 @@
 				<a href="/mysite2/main">MySite</a>
 			</h1>
 
-			<ul>
-				<li><a href="/mysite2/user?action=loginForm">로그인</a></li>
-				<li><a href="/mysite2/user?action=joinForm">회원가입</a></li>
-			</ul>
+			<%if(authUser == null){ %>
+				<ul>
+					<li><a href="/mysite2/user?action=loginForm">로그인</a></li>
+					<li><a href="/mysite2/user?action=modifyForm">회원가입</a></li>
+				</ul>
+			<%}else{ %>
+				<!-- if 로그인 안햇으면  -->
+				<ul>
+					<li><%=authUser.getName() %> 님 안녕하세요^^</li>
+					<li><a href="/mysite2/user?action=logout">로그아웃</a></li>
+					<li><a href="/mysite2/user?action=modifyForm">회원정보수정</a></li>
+				</ul>
+			<%} %>
 		</div>
 		<!-- //header -->
 

@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ page import="com.javaex.vo.UserVo" %>
 
 <%
 
 	int no = Integer.parseInt(request.getParameter("no")); // 삭제할 정보의 특정 번호 가져오기
 	
 	String password = request.getParameter("pass"); 
-	
-	
 	//int count = (int)request.getAttribute("count");	 //int로 형변환
-	
 	//numberFormatExseption : null 오류??
+			
+	UserVo authUser = (UserVo)session.getAttribute("authUser");
 
 
 %>
@@ -33,10 +33,19 @@
 				<a href="/mysite2/main">MySite</a>
 			</h1>
 
-			<ul>
-				<li><a href="/mysite2/user?action=loginForm">로그인</a></li>
-				<li><a href="/mysite2/user?action=joinForm">회원가입</a></li>
-			</ul>
+			<%if(authUser == null){ %>
+				<ul>
+					<li><a href="/mysite2/user?action=loginForm">로그인</a></li>
+					<li><a href="/mysite2/user?action=modifyForm">회원가입</a></li>
+				</ul>
+			<%}else{ %>
+				<!-- if 로그인 안햇으면  -->
+				<ul>
+					<li><%=authUser.getName() %> 님 안녕하세요^^</li>
+					<li><a href="/mysite2/user?action=logout">로그아웃</a></li>
+					<li><a href="/mysite2/user?action=modifyForm">회원정보수정</a></li>
+				</ul>
+			<%} %>
 		</div>
 		<!-- //header -->
 
@@ -89,7 +98,7 @@
 							<td><input type="password" name="pass"></td>
 							<!-- pass값을 delete에서 getParameter값으로 불러와서 비밀번호 확인 -->
 							<td class="text-left"><button type="submit">삭제</button></td>
-							<td><a href="/mysite2/gbc?action=addList">[메인으로 돌아가기]</a></td>
+							<td><a href="/mysite2/main">[메인으로 돌아가기]</a></td>
 						</tr>
 					</table>
 					<!-- 
