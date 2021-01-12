@@ -14,7 +14,7 @@ public class UserDao {
 	//0. import java.sql.*;
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
-	private ResultSet rs =null; //select문에 사용됨
+	private ResultSet rs = null; //select문에 사용됨
 	
 	
 	private String driver = "oracle.jdbc.driver.OracleDriver";
@@ -111,6 +111,66 @@ public class UserDao {
 			close();
 			
 			return count;
+		}
+		
+		
+		
+		public UserVo getUser(String id, String pw) {
+			
+			UserVo userVo = null;
+			
+			getConnection();
+			
+			
+			try {
+				
+				//3. sql문 준비 /바인딩 /실행
+				
+				//select no,
+		        //id,
+		        //password,
+		        //name,
+		        //gender
+				//from users
+				//where id='1111'
+				//and password ='1111';
+				
+				String query = "";	
+				query += " select no, ";
+				query += " 		  name ";
+				query += " from users ";
+				query += " where id= ? ";
+				query += " and password = ? ";
+				
+				pstmt = conn.prepareStatement(query); //쿼리로 만들기
+				pstmt.setString(1, id); //물음표 순서 중요 ,1번째
+				pstmt.setString(2, pw);
+				
+				rs = pstmt.executeQuery(); //쿼리문 실행
+				
+				//4. 결과처리
+				
+				// System.out.println("[" +count+ "등록되었습니다.]");
+				
+				while(rs.next()) {
+					int no = rs.getInt("no");
+					String name =rs.getNString("name");
+					
+					userVo = new UserVo(no,name);
+				}
+				
+
+				 
+			}catch(SQLException e) {
+				System.out.println("error:" + e);
+			}
+			close();
+			
+			return userVo;
+			
+			
+			
+			
 		}
 		
 

@@ -13,6 +13,19 @@ public class UserVo {
 		super();
 	}
 	
+
+	public UserVo(int no, String name) {
+		this.no = no;
+		this.name = name;
+	}
+	
+	public UserVo( String id,String name) {
+		this.id = id;
+		this.name = name;
+	}
+
+
+	
 	
 	public UserVo(String id, String password, String name, String gender) {
 		this.id = id;

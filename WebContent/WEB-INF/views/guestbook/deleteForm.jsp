@@ -42,7 +42,7 @@
 
 		<div id="nav">
 			<ul>
-				<li><a href="">방명록</a></li>
+				<li><a href="/mysite2/gbc?action=addList">방명록</a></li>
 				<li><a href="">갤러리</a></li>
 				<li><a href="">게시판</a></li>
 				<li><a href="">입사지원서</a></li>
@@ -92,21 +92,22 @@
 							<td><a href="/mysite2/gbc?action=addList">[메인으로 돌아가기]</a></td>
 						</tr>
 					</table>
-					<!-- %표시가 있는채로는 주석처리가 제대로 안되서...
+					<!-- 
 					java.lang.NumberFormatException: null 오류때문에 생략 count말고 pass값으로 비교해보기
 					password의 초기값이 null , 
 					비밀번호 입력시 delete에서 비밀번호 성공하면 addlist로 가고
 					비밀번호 실패할시 else로 넘어가서 비밀번호 틀림 나오기 
-					(원래는 password값과 입력값 pass를 비교하려 햇으나 이게 더 간단한거같음..) -->
-					<% if(password == null ) { %>
-					
-							
-					<%}else { %> 
+					(원래는 password값과 입력값 pass를 비교하려 햇으나 이게 더 간단한거같음..) 
+					-->
+					<% if(password != null ) { %>
 					
 						<p>비밀번호가 틀립니다. 다시입력해주세요</p>
 						
 						<input type='hidden' name="pass" value="<%=password%>">
-					<%} %>
+													
+					<%}%> 
+					
+
 					
 					<!-- action값 delete / no값과, pass값으로 비밀번호 확인 -->
 					<input type='hidden' name="action" value="delete">

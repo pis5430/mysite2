@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.UserDao;
 import com.javaex.util.WebUtil;
@@ -60,12 +61,6 @@ public class UserController extends HttpServlet {
 			WebUtil.forward(request, response, "/WEB-INF/views/user/joinOk.jsp");
 
 
-		}else if("loginForm".equals(action)) {
-			System.out.println("로그인 폼");
-						
-			//포워드 --> joinOk.jsp
-			WebUtil.forward(request, response, "/WEB-INF/views/user/loginForm.jsp");
-
 		}else if("modifyForm".equals(action)) {
 			System.out.println("수정 폼");
 			
@@ -73,6 +68,54 @@ public class UserController extends HttpServlet {
 			//포워드 --> joinOk.jsp
 			WebUtil.forward(request, response, "/WEB-INF/views/user/modifyForm.jsp");
 
+		}else if("login".equals(action)) {
+			
+			System.out.println("로그인 ");
+			
+			//파라미터 id,pw
+			String id = request.getParameter("id");
+			String pw = request.getParameter("pw");
+			
+			//dap --? getUser();
+			UserDao userDao = new UserDao();
+			UserVo authVo = userDao.getUser(id, pw); //
+			System.out.println(authVo);
+			
+			if(authVo == null) {// 로그인실패
+				
+				System.out.println("로그인 실패"); //리다이렉트 --> 로그인폼
+				WebUtil.rdirecte(request, response, "/mysite2/user?action=loginForm");
+				
+			}else { //성공일때
+				
+				System.out.println("로그인 성공");
+	
+				HttpSession session = request.getSession();
+				session.setAttribute("authUser", authVo);
+				
+				WebUtil.rdirecte(request, response, "/mysite2/main");
+			
+			}
+			
+			
+			
+		}else if("loginForm".equals(action)) {
+			
+			System.out.println("로그인 폼");
+			
+			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
+			WebUtil.forward(request, response, "/WEB-INF/views/user/loginForm.jsp");
+
+		}else if("logout".equals(action)) {
+			
+			System.out.println("로그아웃");
+			//세션 영역에 있는 vo를 삭제해야함 
+			
+			HttpSession session = request.getSession();
+			session.removeAttribute("authUser");
+			session.invalidate();
+			
+			WebUtil.rdirecte(request, response, "/mysite2/main");
 		}
 				
 		

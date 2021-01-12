@@ -8,10 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.GuestBookDao;
+import com.javaex.dao.UserDao;
 import com.javaex.util.WebUtil;
 import com.javaex.vo.GuestBookVo;
+import com.javaex.vo.UserVo;
 
 
 @WebServlet("/gbc") //방명록 기능 (등록 add , 등록폼 addlist, 삭제 delete , 삭제폼deleteForm )
@@ -103,8 +106,6 @@ public class GuestbookController extends HttpServlet {
 			WebUtil.forward(request, response, "/WEB-INF/views/guestbook/deleteForm.jsp");
 			
 		}
-		
-		
 		
 		
 		
