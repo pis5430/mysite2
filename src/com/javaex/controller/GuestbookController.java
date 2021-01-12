@@ -90,6 +90,7 @@ public class GuestbookController extends HttpServlet {
 			}
 			  // count값 여부로 삭제 성공 , 삭제 실패를 나타낼수 있다. 페이지를 따로 만들지 않고 
 			  // count값을 deleteForm으로 보내줘서 실패했습니다. 문구를 표기하는법 attribute 시도
+			  // count값을 보내지 않고 deleteForm에서 pass값을 이용
 			  // 팝업창 표시는 아마도 자바스크립트...
 
 				
