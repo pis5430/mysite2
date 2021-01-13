@@ -118,7 +118,16 @@ public class UserController extends HttpServlet {
 			UserVo upVo = userDao.getUserNo(userVo.getNo());
 			System.out.println("upVo :" + upVo);
 			
-			session.setAttribute("upVo", upVo);
+			//로그인 정보 다시 조회 (main 이름값만 변경이 안되서 시도해보기) --> 그래도 안됨..
+			String newId =upVo.getId();
+			String newPw = upVo.getPassword();
+			String newName = upVo.getName();
+			String newGender = upVo.getGender();
+			
+			UserVo newInfo = (UserVo)userDao.getUserNo(userVo.getNo());
+			
+			
+			session.setAttribute("new", newInfo);
 			
 			//WebUtil.rdirecte(request, response, "/mysite2/main");
 			

@@ -7,7 +7,7 @@
 
 	UserVo userNo = (UserVo)session.getAttribute("userNo");
 	
-	//UserVo upVo = (UserVo)request.getAttribute("upVo"); 업데이트는 되는데 수정된 이름으로 불러와지지 않음 
+	UserVo upVo = (UserVo)request.getAttribute("new");  // 업데이트는 되는데 수정된 이름으로 불러와지지 않음 
 %>
 
 <!DOCTYPE html>

@@ -6,8 +6,6 @@
 
 	UserVo authUser = (UserVo)session.getAttribute("authUser");
 
-	UserVo userNo = (UserVo)session.getAttribute("userNo");
-
 %>
 
 <!DOCTYPE html>
