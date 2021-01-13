@@ -198,9 +198,11 @@ public class UserDao {
 				query += " 		  gender ";
 				query += " from users ";
 				query += " where no= ? ";
+				query += " or id= ? ";
 				
 				pstmt = conn.prepareStatement(query); //쿼리로 만들기
 				pstmt.setInt(1, no); //물음표 순서 중요 ,1번째
+				pstmt.setString(2, id); //물음표 순서 중요 ,1번째
 				
 				rs = pstmt.executeQuery(); //쿼리문 실행
 				
@@ -250,7 +252,7 @@ public class UserDao {
 				//where no = 1;
 				
 				String query = "";	
-				query += " update users, ";
+				query += " update users ";
 				query += " set password = ?, ";
 				query += " 	   name = ?, ";
 				query += "     gender = ? ";

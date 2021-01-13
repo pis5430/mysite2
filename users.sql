@@ -23,9 +23,9 @@ drop sequence seq_users_no;
 --데이터 입력
 insert into users
 values (seq_users_no.nextval, 
-        'aaa', 
-        '1234' , 
-        '아무개' , 
+        '2222', 
+        '2222' , 
+        '2222' , 
         'mail');
 
 --테이블 삭제
@@ -37,5 +37,26 @@ from users;
 
 select *
 from guestbook;
+
+
+--update문
+update users
+set password = '1234',
+    name = '테스트',
+    gender = 'female'
+where no = 1;
+
+--아이디와 비밀번호가 일치하는 사람 출력 
+select no,
+        id,
+        password,
+        name,
+        gender
+from users
+where id='1111'
+and password ='1111';
+
+
+
 
 commit;

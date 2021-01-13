@@ -84,8 +84,8 @@ public class UserController extends HttpServlet {
 			System.out.println("userVo :" + userVo);
 			
 			
-			//한명의 정보를 modifyForm에서 각각의 값을 불러올수 잇도록 보내줘야함
-			request.setAttribute("userNo", userVo);			
+			//한명의 정보를 modifyForm에서 각각의 값을 불러올수 잇도록 보내줘야함 //session으로 통일
+			session.setAttribute("userNo", userVo);			
 			
 			//포워드 --> joinOk.jsp
 			WebUtil.forward(request, response, "/WEB-INF/views/user/modifyForm.jsp");
@@ -97,25 +97,32 @@ public class UserController extends HttpServlet {
 			
 			System.out.println("수정");
 			
+			//힌트 : session에 있는 no값을 불러와야 한다.
+			HttpSession session = request.getSession();
+			UserVo auth = (UserVo)session.getAttribute("authUser"); 
+			
 			//파라미터  id는 변경못함 no는 섹션에서
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");
-			//int no = Integer.parseInt(request.getParameter("no"));
+			int no = auth.getNo();
 			
-			UserVo userVo = new UserVo(id,pw,name,gender);
+			UserVo userVo = new UserVo(no,id,pw,name,gender);
 			UserDao userDao = new UserDao();
 			
-			userDao.UserModify(userVo);
-			System.out.println(userVo);
+			userDao.UserModify(userVo); //정보 업데이트
+			System.out.println(userVo); //수정된 값을 가지고 있음 
 			
-			HttpSession session = request.getSession();
-			session.setAttribute("userVo", userVo);
+			//수정된 값을 다른곳에도 불러와야함 (로그인 이름)--> no값도 일단 불러오자
+			UserVo upVo = userDao.getUserNo(userVo.getNo());
+			System.out.println("upVo :" + upVo);
+			
+			session.setAttribute("upVo", upVo);
 			
 			//WebUtil.rdirecte(request, response, "/mysite2/main");
 			
-			WebUtil.rdirecte(request, response, "/mysite2/user?action=modifyForm");// WebUtil사용
+			WebUtil.rdirecte(request, response, "/mysite2/main");// WebUtil사용
 			
 		}else if("login".equals(action)) {
 			

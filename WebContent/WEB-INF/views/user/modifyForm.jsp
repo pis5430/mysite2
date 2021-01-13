@@ -5,7 +5,9 @@
 <%
 	UserVo authUser = (UserVo)session.getAttribute("authUser");
 
-	UserVo userNo = (UserVo)request.getAttribute("userNo");
+	UserVo userNo = (UserVo)session.getAttribute("userNo");
+	
+	//UserVo upVo = (UserVo)request.getAttribute("upVo"); 업데이트는 되는데 수정된 이름으로 불러와지지 않음 
 %>
 
 <!DOCTYPE html>
@@ -32,9 +34,9 @@
 					<li><a href="/mysite2/user?action=modifyForm">회원가입</a></li>
 				</ul>
 			<%}else{ %>
-				<!-- if 로그인 안햇으면  -->
+				<!-- if 수정전 authUser.getName() , 수정후 upVo.getName() , 수정전에는 upVo = null  -->
 				<ul>
-					<li><%=authUser.getName() %> 님 안녕하세요^^</li>
+					<li><%=userNo.getName() %>님 안녕하세요^^</li>
 					<li><a href="/mysite2/user?action=logout">로그아웃</a></li>
 					<li><a href="/mysite2/user?action=modifyForm">회원정보수정</a></li>
 				</ul>
@@ -44,7 +46,7 @@
 
 		<div id="nav">
 			<ul>
-				<li><a href="/mysite2/guestbook?action=addList">방명록</a></li>
+				<li><a href="/mysite2/gbc?action=addList">방명록</a></li>
 				<li><a href="">갤러리</a></li>
 				<li><a href="">게시판</a></li>
 				<li><a href="">입사지원서</a></li>
@@ -80,7 +82,7 @@
 
 			<div id="user">
 				<div id="modifyForm">
-					<form action="" method="">
+					<form action="/mysite2/user" method="get">
 
 						<!-- 아이디 -->
 						<div class="form-group">
@@ -91,13 +93,13 @@
 						<!-- 비밀번호 -->
 						<div class="form-group">
 							<label class="form-text" for="input-pass">패스워드</label> 
-							<input type="text" id="input-pass" name="pw" value="" placeholder="비밀번호를 입력하세요"	>
+							<input type="text" id="input-pass" name="pw" value="<%=userNo.getPassword() %>" placeholder="비밀번호를 입력하세요"	>
 						</div>
 
 						<!-- 이메일 -->
 						<div class="form-group">
 							<label class="form-text" for="input-name">이름</label> 
-							<input type="text" id="input-name" name="name" value="" placeholder="이름을 입력하세요">
+							<input type="text" id="input-name" name="name" value="<%=userNo.getName() %>" placeholder="이름을 입력하세요">
 						</div>
 
 						<!-- //나이 -->
