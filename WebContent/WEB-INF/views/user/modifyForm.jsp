@@ -23,37 +23,8 @@
 <body>
 	<div id="wrap">
 
-		<div id="header">
-			<h1>
-				<a href="/mysite2/main">MySite</a>
-			</h1>
-
-			<%if(authUser == null){ %>
-				<ul>
-					<li><a href="/mysite2/user?action=loginForm">로그인</a></li>
-					<li><a href="/mysite2/user?action=modifyForm">회원가입</a></li>
-				</ul>
-			<%}else{ %>
-				<!-- if 수정전 authUser.getName() , 수정후 upVo.getName() , 수정전에는 upVo = null  -->
-				<ul>
-					<li><%=userNo.getName() %>님 안녕하세요^^</li>
-					<li><a href="/mysite2/user?action=logout">로그아웃</a></li>
-					<li><a href="/mysite2/user?action=modifyForm">회원정보수정</a></li>
-				</ul>
-			<%} %>
-		</div>
-		<!-- //header -->
-
-		<div id="nav">
-			<ul>
-				<li><a href="/mysite2/gbc?action=addList">방명록</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">입사지원서</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
-		<!-- //nav -->
+		<!-- header + navi 공통으로 옮겼음 -->		
+		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
 		<div id="aside">
 			<h2>회원</h2>
@@ -139,10 +110,8 @@
 		<!-- //content  -->
 		<div class="clear"></div>
 		
-		<div id="footer">
-			Copyright ⓒ 2020 황일영. All right reserved
-		</div>
-		<!-- //footer -->
+		<!-- footer 공통으로 옮겼음 -->		
+		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 		
 	</div>
 	<!-- //wrap -->

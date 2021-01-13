@@ -160,7 +160,7 @@ public class UserController extends HttpServlet {
 			if(authVo == null) {// 로그인실패
 				
 				System.out.println("로그인 실패"); //리다이렉트 --> 로그인폼
-				WebUtil.rdirecte(request, response, "/mysite2/user?action=loginForm");
+				WebUtil.rdirecte(request, response, "/mysite2/user?action=loginForm&result=fail");
 				
 			}else { //성공일때
 				
