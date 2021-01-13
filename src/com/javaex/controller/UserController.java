@@ -71,10 +71,12 @@ public class UserController extends HttpServlet {
 			
 			//힌트 : session에 있는 no값을 불러와야 한다.
 			HttpSession session = request.getSession();
-			UserVo auth = (UserVo)session.getAttribute("authUser"); 
+			UserVo auth = (UserVo)session.getAttribute("authUser");//주소받은것 
 			System.out.println("authVo :" + auth.toString());
 			//형변환
 			//로그인 표시할때 사용하는 authUser에서 no값 가져오기
+			//int no = auth.getNo()  -->no값 하나만으로도 정보를 모두 가지고올수 있는 메소드 필요
+			
 			
 			//dao
 			UserDao userDao = new UserDao();
@@ -84,7 +86,7 @@ public class UserController extends HttpServlet {
 			System.out.println("userVo :" + userVo);
 			
 			
-			//한명의 정보를 modifyForm에서 각각의 값을 불러올수 잇도록 보내줘야함 //session으로 통일
+			//한명의 정보를 modifyForm에서 각각의 값을 불러올수 잇도록 보내줘야함 //session으로 통일 -->수업때는 request로 하심
 			session.setAttribute("userNo", userVo);			
 			
 			//포워드 --> joinOk.jsp
@@ -102,12 +104,13 @@ public class UserController extends HttpServlet {
 			UserVo auth = (UserVo)session.getAttribute("authUser"); 
 			
 			//파라미터  id는 변경못함 no는 섹션에서
-			String id = request.getParameter("id");
+			String id = request.getParameter("id"); //id는 를 쓸게 아니라면 빼주는게 좋음 id도 여기서 끌어다가 써는데 안쓰는방법...다시해보기
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");
 			int no = auth.getNo();
 			
+			//Vo로 만들기
 			UserVo userVo = new UserVo(no,id,pw,name,gender);
 			UserDao userDao = new UserDao();
 			
@@ -119,6 +122,7 @@ public class UserController extends HttpServlet {
 			System.out.println("upVo :" + upVo);
 			
 			//로그인 정보 다시 조회 (main 이름값만 변경이 안되서 시도해보기) --> 그래도 안됨..
+			/*
 			String newId =upVo.getId();
 			String newPw = upVo.getPassword();
 			String newName = upVo.getName();
@@ -128,6 +132,13 @@ public class UserController extends HttpServlet {
 			
 			
 			session.setAttribute("new", newInfo);
+			*/
+			
+			
+			//수업중 --> session정보도 업데이트 하는 방법
+			//1.name값만 변경하면 된다.
+			auth.setName(upVo.getName());
+			
 			
 			//WebUtil.rdirecte(request, response, "/mysite2/main");
 			
