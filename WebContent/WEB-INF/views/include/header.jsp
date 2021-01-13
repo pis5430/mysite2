@@ -15,7 +15,7 @@
 			<%if(authUser == null){ %>
 				<ul>
 					<li><a href="/mysite2/user?action=loginForm">로그인</a></li>
-					<li><a href="/mysite2/user?action=modifyForm">회원가입</a></li>
+					<li><a href="/mysite2/user?action=joinForm">회원가입</a></li>
 				</ul>
 			<%}else{ %>
 				<!-- if 로그인 안햇으면  -->
