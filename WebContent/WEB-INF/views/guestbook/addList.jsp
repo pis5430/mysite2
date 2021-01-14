@@ -1,15 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%@ page import="java.util.List" %>
-<%@ page import="com.javaex.vo.GuestBookVo" %>
-
-
-<%
-	List<GuestBookVo> guestList = (List<GuestBookVo>)request.getAttribute("gList");
-	System.out.println("======addList.jsp======");
-	System.out.println( "guestList :" + guestList.toString());
-			
-%>
 
 <!DOCTYPE html>
 <html>
@@ -24,7 +15,7 @@
 <body>
 	<div id="wrap">
 
-				<!-- header + navi 공통으로 옮겼음 -->		
+		<!-- header + navi 공통으로 옮겼음 -->		
 		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
 		<div id="aside">
@@ -82,7 +73,7 @@
 				</form>	
 				
 				<!-- 반복문 처리 -->
-				<% for(int i =0; i < guestList.size(); i++){ %>
+
 				<table class="guestRead">
 					<colgroup>
 						<col style="width: 10%;">
@@ -90,17 +81,21 @@
 						<col style="width: 40%;">
 						<col style="width: 10%;">
 					</colgroup>
+					<c:forEach items="${gList}" var="vo" varStatus="status">
 					<tr>
-						<td><%=guestList.get(i).getNo() %></td>
-						<td><%=guestList.get(i).getName() %></td>
-						<td><%=guestList.get(i).getDate()%></td>
-						<td><a href="/mysite2/gbc?action=deleteForm&no=<%=guestList.get(i).getNo() %>">[삭제]</a></td>
+						<td>${vo.no}</td>
+						<td>${vo.name}</td>
+						<td>${vo.date}</td>
+						<td><a href="/mysite2/gbc?action=deleteForm&no=${vo.no}">[삭제]</a></td>
 					</tr>
+					
 					<tr>
-						<td colspan=4 class="text-left"><%=guestList.get(i).getContent()%></td>
+						<td colspan=4 class="text-left">${vo.content}</td>
 					</tr>
+					</c:forEach>
 				</table>
-				<%} %>
+
+				
 				
 				<!-- //guestRead -->
 				<!-- 

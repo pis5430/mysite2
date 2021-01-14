@@ -1,19 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%@ page import="com.javaex.vo.UserVo" %>
-
-<%
-
-	int no = Integer.parseInt(request.getParameter("no")); // 삭제할 정보의 특정 번호 가져오기
-	
-	String password = request.getParameter("pass"); 
-	//int count = (int)request.getAttribute("count");	 //int로 형변환
-	//numberFormatExseption : null 오류??
-			
-	UserVo authUser = (UserVo)session.getAttribute("authUser");
-
-
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -28,37 +14,8 @@
 <body>
 	<div id="wrap">
 
-		<div id="header">
-			<h1>
-				<a href="/mysite2/main">MySite</a>
-			</h1>
-
-			<%if(authUser == null){ %>
-				<ul>
-					<li><a href="/mysite2/user?action=loginForm">로그인</a></li>
-					<li><a href="/mysite2/user?action=modifyForm">회원가입</a></li>
-				</ul>
-			<%}else{ %>
-				<!-- if 로그인 안햇으면  -->
-				<ul>
-					<li><%=authUser.getName() %> 님 안녕하세요^^</li>
-					<li><a href="/mysite2/user?action=logout">로그아웃</a></li>
-					<li><a href="/mysite2/user?action=modifyForm">회원정보수정</a></li>
-				</ul>
-			<%} %>
-		</div>
-		<!-- //header -->
-
-		<div id="nav">
-			<ul>
-				<li><a href="/mysite2/gbc?action=addList">방명록</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">입사지원서</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
-		<!-- //nav -->
+		<!-- header + navi 공통으로 옮겼음 -->		
+		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
 		<div id="aside">
 			<h2>방명록</h2>
@@ -108,20 +65,23 @@
 					비밀번호 실패할시 else로 넘어가서 비밀번호 틀림 나오기 
 					(원래는 password값과 입력값 pass를 비교하려 햇으나 이게 더 간단한거같음..) 
 					-->
-					<% if(password != null ) { %>
+					<c:choose>
+						<c:when test="${!empty param.pass}">
 					
 						<p>비밀번호가 틀립니다. 다시입력해주세요</p>
-						
-						<input type='hidden' name="pass" value="<%=password%>">
 													
-					<%}%> 
-					
+						</c:when>
+					</c:choose>						
+						<input type='hidden' name="pass" value="${param.pass}">
+
 
 					
 					<!-- action값 delete / no값과, pass값으로 비밀번호 확인 -->
 					<input type='hidden' name="action" value="delete">
-					<input type='hidden' name="no" value="<%=no %>">
+					<input type='hidden' name="no" value="${param.no}">
+				
 				</form>	
+				
 				
 			</div>
 			<!-- //guestbook -->
