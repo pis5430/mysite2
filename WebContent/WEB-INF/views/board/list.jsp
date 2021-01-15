@@ -114,8 +114,17 @@
 						
 						
 						<div class="clear"></div>
-					</div>
-					<a id="btn_write" href="">글쓰기</a>
+					</div>					
+						<!-- 로그인시에만 보이도록  -->
+						<c:choose>
+							<c:when test="${empty sessionScope.authUser}">
+							 <!-- 로그인 안되어 있을때  아무것도 안보임-->												
+							</c:when>
+							<c:otherwise>
+								<a id="btn_write" href="/mysite2/bc?action=writeForm">글쓰기</a>
+							</c:otherwise>
+						</c:choose>
+				
 				
 				</div>
 				<!-- //list -->
