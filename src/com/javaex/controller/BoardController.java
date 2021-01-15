@@ -29,6 +29,8 @@ public class BoardController extends HttpServlet {
 		
 		if("list".equals(action)) {
 			
+			System.out.println("게시판 리스트 출력");
+			
 			//리스트 출력
 			BoardDao boardDao = new BoardDao();
 			List<BoardVo> boardList = boardDao.getBoradList();
@@ -39,6 +41,15 @@ public class BoardController extends HttpServlet {
 			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
 			WebUtil.forward(request, response, "/WEB-INF/views/board/list.jsp");
 				
+			
+		}else if("writeForm".equals(action)) {
+			
+			System.out.println("게시판 글 읽기");
+			
+			
+			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
+			WebUtil.forward(request, response, "/WEB-INF/views/board/writeForm.jsp");
+
 			
 		}
 

@@ -66,8 +66,8 @@
 						<c:forEach items="${bList}" var="vo" varStatus="status">
 							<tr>
 								<td>${vo.no}</td>
-								<td class="text-left"><a href="#">${vo.name}</a></td>
-								<td>${vo.title}</td>
+								<td class="text-left"><a href="#">${vo.title}</a></td>
+								<td>${vo.name}</td>
 								<td>${vo.hit}</td>
 								<td>${vo.date}</td>
 								<td><a href="">[삭제]</a></td>
