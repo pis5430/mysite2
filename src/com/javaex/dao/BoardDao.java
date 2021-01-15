@@ -109,8 +109,9 @@ public class BoardDao {
 			query += "        b.hit, ";
 			query += "        b.reg_date, ";
 			query += "        b.user_no ";
-			query += " from board b , uesrs u ";
+			query += " from board b , users u ";
 			query += " where b.user_no = u.no ";			
+			
 			System.out.println(query);
 			
 			pstmt = conn.prepareStatement(query);
@@ -128,6 +129,7 @@ public class BoardDao {
 				
 				BoardVo vo = new BoardVo(no,title,name ,content ,hit, reg_date,user_no);
 				bList.add(vo);
+				System.out.println(bList);
 			}
 				
 		}catch(SQLException e) {
