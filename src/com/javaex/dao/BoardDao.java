@@ -212,5 +212,47 @@ public class BoardDao {
 		return boardVo;			
 	}
 	
+	
+	//조회수 올리기
+	
+	public int hitCount(int no) {
+		
+		getConnection();
+		
+		int count =0;
+		
+		try {
+			
+			//3. sql문 준비 /바인딩 /실행
+			
+			//--게시물 조회수 업데이트
+			//--update문
+			//update board
+			//set hit = hit+1
+			//where no = 1;
+			
+			String query = "";	
+			query += " update board ";
+			query += " set hit = hit+1 ";
+			query += " where no = ? ";
+			
+			pstmt = conn.prepareStatement(query); //쿼리로 만들기
+			pstmt.setInt(1, no); //물음표 순서 중요 ,1번째
+			
+			count = pstmt.executeUpdate(); //쿼리문 실행(count, rs랑 다르게 쓰는거 잊지말기)
+			
+			//4. 결과처리
+			
+			System.out.println("[" +count+ "등록되었습니다.]");
+			
 
+			 
+		}catch(SQLException e) {
+			System.out.println("error:" + e);
+		}
+		close();
+		
+		return count;
+
+	}
 }

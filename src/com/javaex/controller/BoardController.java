@@ -43,7 +43,7 @@ public class BoardController extends HttpServlet {
 			WebUtil.forward(request, response, "/WEB-INF/views/board/list.jsp");
 				
 			
-		}else if("read".equals(action)) {
+		}else if("read".equals(action)) { //이 페이지에 들어갈대마다 해당 조회수가 1씩 올라감
 			
 			System.out.println("게시판 글 읽기");
 			//해당 이름, 조회수, 작성일 , 제목, 내용이 출력되야함
@@ -53,6 +53,9 @@ public class BoardController extends HttpServlet {
 			
 			//dao
 			BoardDao boardDao = new BoardDao();
+			
+			//조회수 올리기
+			boardDao.hitCount(no);
 			
 			//글 정보를 불러옴
 			BoardVo boardVo = boardDao.getBoardNo(no); //해당 넘버의 한명정보
