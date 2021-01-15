@@ -93,24 +93,27 @@ public class BoardDao {
 			
 			//3.sql문 준비 / 바인딩 실행 (* 는 왠만하면 쓰지 않기)
 			
-			//--게시물식별번호,제목,내용,조회수,등록일,회원식별번호)
-			//select  no 게시물번호,
-	        //        title 제목,
-	        //        content 내용,
-	        //        hit 조회수,
-	        //        reg_date 등록일,
-	        //        user_no 회원번호
-        	//from board;
+			//select  b.no 게시물번호,
+	        //u.name 이름,
+	        //b.title 제목,
+	        //b.content 내용,
+	        //b.hit 조회수,
+	        //b.reg_date 등록일,
+	        //b.user_no 회원번호
+	        //from board b , users u
+	        //where b.user_no = u.no;
 			
+			//name은 users에서 가져와야하고 pk와 fk 일치 확인 
 			query += " select b.no, ";
 			query += "        b.title, ";
 			query += "        u.name, ";
 			query += "        b.content, ";
 			query += "        b.hit, ";
-			query += "        b.reg_date, ";
+			query += "        to_char(b.reg_date,'YYYY-MM-DD HH24:MI') reg_date, "; //표시형식 변경
 			query += "        b.user_no ";
 			query += " from board b , users u ";
-			query += " where b.user_no = u.no ";			
+			query += " where b.user_no = u.no "; 
+			query += " order by b.reg_date desc"; //정렬추가 게시판 정렬순서 작성순서대로
 			
 			System.out.println(query);
 			
