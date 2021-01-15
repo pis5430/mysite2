@@ -78,7 +78,18 @@
 								<td>${vo.name}</td>
 								<td>${vo.hit}</td>
 								<td>${vo.date}</td>
-								<td><a href="/mysite2/bc?action=delete&no=${vo.no}">[삭제]</a></td>
+								<td>
+									<!-- 로그인시에만 보이도록  -->
+									<c:choose>
+										<c:when test="${empty sessionScope.authUser}">
+										 <!-- 로그인 안되어 있을때  아무것도 안보임-->
+													
+										</c:when>
+										<c:when test="${authUser.no == vo.no}">
+											<a href="/mysite2/bc?action=delete&no=${vo.no}">[삭제]</a>
+										</c:when>
+									</c:choose>
+								</td>
 							</tr>
 						</c:forEach>
 						<!-- /반복문처리 -->	
