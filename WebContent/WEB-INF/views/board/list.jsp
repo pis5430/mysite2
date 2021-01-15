@@ -78,7 +78,7 @@
 								<td>${vo.name}</td>
 								<td>${vo.hit}</td>
 								<td>${vo.date}</td>
-								<td><a href="">[삭제]</a></td>
+								<td><a href="/mysite2/bc?action=delete&no=${vo.no}">[삭제]</a></td>
 							</tr>
 						</c:forEach>
 						<!-- /반복문처리 -->	

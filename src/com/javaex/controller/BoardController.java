@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.BoardDao;
+import com.javaex.dao.GuestBookDao;
 import com.javaex.util.WebUtil;
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.GuestBookVo;
 
 
 @WebServlet("/bc")
@@ -82,13 +84,27 @@ public class BoardController extends HttpServlet {
 			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
 			WebUtil.forward(request, response, "/WEB-INF/views/board/writeForm.jsp");
 			
+		}else if("delete".equals(action)) { //삭제기능
+			
+			System.out.println("게시글 삭제");
+					
+			//no를 이용해서 해당 내용 삭제		
+			int no =Integer.parseInt(request.getParameter("no"));
+			System.out.println();
+			
+		    //delete불러오기위한 dao선언
+			BoardDao boardDao = new BoardDao();
+			boardDao.boardDelete(no);
+			
+			System.out.println("게시판번호 no:"+no); //count값 확인
+			
+			//삭제 실패시는 염두에 두지 않음 --> 본인것만 삭제 가능하게 , 본인글 삭제 버튼만 나오게 만들예정	
+			WebUtil.rdirecte(request, response, "/mysite2/bc?action=list");// WebUtil사용
+					
 		}
-
 		
 		
-		
-		
-		}
+}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
