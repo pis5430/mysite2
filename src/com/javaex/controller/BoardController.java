@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.BoardDao;
 import com.javaex.util.WebUtil;
@@ -42,14 +43,41 @@ public class BoardController extends HttpServlet {
 			WebUtil.forward(request, response, "/WEB-INF/views/board/list.jsp");
 				
 			
-		}else if("writeForm".equals(action)) {
+		}else if("read".equals(action)) {
 			
 			System.out.println("게시판 글 읽기");
+			//해당 이름, 조회수, 작성일 , 제목, 내용이 출력되야함
+						
+			//no를 이용해서 해당 내용을 출력하기			
+			int no =Integer.parseInt(request.getParameter("no"));
+			
+			//dao
+			BoardDao boardDao = new BoardDao();
+			
+			//글 정보를 불러옴
+			BoardVo boardVo = boardDao.getBoardNo(no); //해당 넘버의 한명정보
+			System.out.println(boardVo);
+			
+			request.setAttribute("boardVo", boardVo);
 			
 			
 			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
-			WebUtil.forward(request, response, "/WEB-INF/views/board/writeForm.jsp");
+			WebUtil.forward(request, response, "/WEB-INF/views/board/read.jsp");
 
+			
+		}else if("d_modifyForm".equals(action)) {
+			
+			System.out.println("게시판 수정 폼");
+			
+			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
+			WebUtil.forward(request, response, "/WEB-INF/views/board/modifyForm.jsp");
+			
+		}else if("writeForm".equals(action)) {
+			
+			System.out.println("게시판 쓰기");
+			
+			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
+			WebUtil.forward(request, response, "/WEB-INF/views/board/writeForm.jsp");
 			
 		}
 

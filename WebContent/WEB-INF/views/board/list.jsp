@@ -51,6 +51,14 @@
 						</div>
 					</form>
 					<table >
+						<colgroup>
+						<col style="width: 5%;">
+						<col style="width: 50%;">
+						<col style="width: 10%;">
+						<col style="width: 10%;">
+						<col style="width: 20%;">
+						<col style="width: 5%;">
+						</colgroup>
 						<thead>
 							<tr>
 								<th>번호</th>
@@ -66,7 +74,7 @@
 						<c:forEach items="${bList}" var="vo" varStatus="status">
 							<tr>
 								<td>${vo.no}</td>
-								<td class="text-left"><a href="#">${vo.title}</a></td>
+								<td class="text-left"><a href="/mysite2/bc?action=read&no=${vo.no}">${vo.title}</a></td>
 								<td>${vo.name}</td>
 								<td>${vo.hit}</td>
 								<td>${vo.date}</td>

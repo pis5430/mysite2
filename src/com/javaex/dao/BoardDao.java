@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.UserVo;
 
 public class BoardDao {
 	
@@ -146,6 +147,70 @@ public class BoardDao {
 	}
 	
 	
+	
+	//한명의 게시물 정보 가져오기 (read 게시물 번호 no값으로 가져오기 게시물번호) 
+	
+	public BoardVo getBoardNo(int no) { 
+		
+		BoardVo boardVo = null;
+		
+		getConnection();
+		
+		
+		try {
+			
+			//3. sql문 준비 /바인딩 /실행
+			
+			//select no,
+	        //id,
+	        //password,
+	        //name,
+	        //gender
+			//from users
+			//where no=1
+			
+			String query = "";	
+			query += " select b.no, ";
+			query += "        u.name, ";
+			query += "        b.hit, ";
+			query += "        to_char(b.reg_date,'YYYY-MM-DD HH24:MI') reg_date, "; //표시형식 변경
+			query += "        b.title, ";
+			query += "        b.content, ";
+			query += "        b.user_no ";
+			query += " from board b , users u ";
+			query += " where b.user_no = u.no "; 
+			query += " and b.no = ?"; //게시판번호로 가져오기
+
+
+			
+			pstmt = conn.prepareStatement(query); //쿼리로 만들기
+			pstmt.setInt(1, no); //물음표 순서 중요 ,1번째
+			
+			rs = pstmt.executeQuery(); //쿼리문 실행
+			
+			//4. 결과처리
+			
+			// System.out.println("[" +count+ "등록되었습니다.]");
+			
+			while(rs.next()) {
+				int bno = rs.getInt("no");
+				String title = rs.getString("title");
+				String name = rs.getString("name");
+				String content = rs.getString("content");
+				int hit = rs.getInt("hit");
+				String reg_date = rs.getString("reg_date");
+				int user_no = rs.getInt("user_no");
+				
+				boardVo = new BoardVo(bno,title,name ,content ,hit, reg_date,user_no);
+			}				
+			 
+		}catch(SQLException e) {
+			System.out.println("error:" + e);
+		}
+		close();
+		
+		return boardVo;			
+	}
 	
 
 }
