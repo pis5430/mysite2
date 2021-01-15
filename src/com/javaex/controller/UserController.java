@@ -193,6 +193,34 @@ public class UserController extends HttpServlet {
 			session.invalidate();
 			
 			WebUtil.rdirecte(request, response, "/mysite2/main");
+		}else if("list".equals(action)) {
+			
+			System.out.println("게시판 리스트");
+			
+			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
+			WebUtil.forward(request, response, "/WEB-INF/views/board/list.jsp");
+			
+		}else if("d_modifyForm".equals(action)) {
+			
+			System.out.println("게시판 수정 폼");
+			
+			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
+			WebUtil.forward(request, response, "/WEB-INF/views/board/modifyForm.jsp");
+			
+		}else if("read".equals(action)) {
+			
+			System.out.println("게시판 자세히 보기");
+			
+			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
+			WebUtil.forward(request, response, "/WEB-INF/views/board/read.jsp");
+			
+		}else if("writeForm".equals(action)) {
+			
+			System.out.println("게시판 쓰기");
+			
+			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
+			WebUtil.forward(request, response, "/WEB-INF/views/board/writeForm.jsp");
+			
 		}
 				
 		

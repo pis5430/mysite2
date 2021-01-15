@@ -5,7 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.javaex.vo.GuestBookVo;
 import com.javaex.vo.UserVo;
 
 public class UserDao {
@@ -100,30 +103,22 @@ public class UserDao {
 				
 				count = pstmt.executeUpdate();
 				
-				//4. 결과처리
+				//4. 결과처리				
+				System.out.println("[" +count+ "등록되었습니다.]");	
 				
-				System.out.println("[" +count+ "등록되었습니다.]");
-
-				 
 			}catch(SQLException e) {
 				System.out.println("error:" + e);
 			}
-			close();
-			
+			close();			
 			return count;
 		}
 		
-		
-		
 		public UserVo getUser(String id, String pw) { //아이디와 패스워드 값을 불러옴
 			
-			UserVo userVo = null;
-			
+			UserVo userVo = null;			
 			getConnection();
-			
-			
+						
 			try {
-				
 				//3. sql문 준비 /바인딩 /실행
 				
 				//select no,
@@ -157,19 +152,16 @@ public class UserDao {
 					String name =rs.getNString("name");
 					
 					userVo = new UserVo(no,name); // no값으로 조회하기 --> 수정폼
-				}
-				
-
+				}				
 				 
 			}catch(SQLException e) {
 				System.out.println("error:" + e);
 			}
 			close();
 			
-			return userVo;
-
-			
+			return userVo;			
 		}
+		
 		
 		public UserVo getUserNo(int no) { //no 값으로 한명의 전체값을 불러옴
 			
@@ -218,18 +210,14 @@ public class UserDao {
 					String gender = rs.getString("gender");
 					
 					userVo = new UserVo(num, id, pw, name, gender);
-				}
-				
-
+				}				
 				 
 			}catch(SQLException e) {
 				System.out.println("error:" + e);
 			}
 			close();
 			
-			return userVo;
-
-			
+			return userVo;			
 		}
 
 		
@@ -278,11 +266,9 @@ public class UserDao {
 			close();
 			
 			return count;
-			
-			
-			
-			
+
 		}
+
 		
 
 }

@@ -89,10 +89,8 @@
 		<!-- //content  -->
 		<div class="clear"></div>
 		
-		<div id="footer">
-			Copyright ⓒ 2020 황일영. All right reserved
-		</div>
-		<!-- //footer -->
+		<!-- footer 공통으로 옮겼음 -->		
+		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 
 	</div>
 	<!-- //wrap -->
