@@ -76,9 +76,22 @@
 								${boardVo.content}<br>
 							</span>
 						</div>
+						<!-- 수정 버튼이 작성한 사람에게만 보이도록 -->
+						<c:choose>
+							<c:when test="${empty sessionScope.authUser}">
+								 <!-- 로그인 안되어 있을때  아무것도 안보임-->
+													
+							</c:when>
+							<c:when test="${authUser.no == boardVo.user_no}">
+						        <a id="btn_modify" href="/mysite2/bc?action=d_modifyForm&no=${boardVo.no}">수정</a>
+							</c:when>
+						</c:choose>
 						
-						<a id="btn_modify" href="">수정</a>
 						<a id="btn_modify" href="">목록</a>
+						<!-- 로그인한 사람의 user_no와 작성한 사람의 user_no가 일치할때 수정버튼 생겨나기  bno게시판번호-->
+						<input type="text" name="no" value="${authUser.no}" >
+						<input type="text" name="user_no" value="${boardVo.user_no}" >
+						<input type="text" name="bno" value="${boardVo.no}" >
 						
 					</form>
 	                <!-- //form -->

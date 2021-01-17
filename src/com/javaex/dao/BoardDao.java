@@ -333,7 +333,44 @@ public class BoardDao {
 		return count;
 	}
 	
+	//게시물 수정
 	
+	public BoardVo boardModify(BoardVo boardVo) {
+		
+		getConnection();		
+		
+		try {
+			
+			//3. sql문 준비 /바인딩 /실행
+			
+			//--게시물 조회수 업데이트
+			//--update문
+			//update board
+			//set title = '제목' ,
+			//    content = '내용'   
+			//where no = 9;
+			
+			String query = "";	
+			query += " update board ";
+			query += " set title = ?, ";
+			query += "     content = ? ";
+			query += " where no = ? ";
+			
+			pstmt = conn.prepareStatement(query); //쿼리로 만들기
+			pstmt.setString(1, boardVo.getTitle()); 
+			pstmt.setString(2, boardVo.getContent()); 
+			pstmt.setInt(3, boardVo.getNo()); 
+			
+			rs = pstmt.executeQuery(); //쿼리문 실행(count, rs랑 다르게 쓰는거 잊지말기)
+			
+			 
+		}catch(SQLException e) {
+			System.out.println("error:" + e);
+		}
+		close();
+		
+		return boardVo;
+	}
 	
 	
 }

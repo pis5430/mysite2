@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.BoardDao;
 import com.javaex.util.WebUtil;
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.UserVo;
 
 
 @WebServlet("/bc")
@@ -71,6 +73,18 @@ public class BoardController extends HttpServlet {
 			
 			System.out.println("게시판 수정 폼");
 			
+			//no를 이용해서 해당 내용을 출력하기			
+			int no =Integer.parseInt(request.getParameter("no"));
+			System.out.println(no);
+							
+			//dao
+			BoardDao boardDao = new BoardDao();
+			
+			//글 정보를 불러옴
+			BoardVo bVo = boardDao.getBoardNo(no); //해당 게시판 넘버의 정보
+			
+			request.setAttribute("bVo", bVo);
+			
 			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
 			WebUtil.forward(request, response, "/WEB-INF/views/board/modifyForm.jsp");
 			
@@ -117,6 +131,29 @@ public class BoardController extends HttpServlet {
 			
 			WebUtil.rdirecte(request, response, "/mysite2/bc?action=list");// WebUtil사용
 
+			
+		}else if("d_modify".equals(action)) {
+			
+			System.out.println("게시판 수정");
+			
+			//no를 이용해서 해당 내용을 출력하기			
+			int no =Integer.parseInt(request.getParameter("no"));
+			System.out.println(no);
+			
+			//title, content
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			
+			BoardVo boardVo = new BoardVo(no,title,content);
+							
+			//dao
+			BoardDao boardDao = new BoardDao();
+			
+			//글 정보를 수정			
+			boardDao.boardModify(boardVo);
+					
+			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
+			WebUtil.rdirecte(request, response, "/mysite2/bc?action=list");// WebUtil사용
 			
 		}
 		
