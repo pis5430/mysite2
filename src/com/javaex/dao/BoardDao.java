@@ -296,4 +296,44 @@ public class BoardDao {
 		
 		return count;
 	}
+	
+	//게시물 등록 
+	
+	public int boardInsert(BoardVo boardVo) {
+		
+		getConnection();
+		
+		int count = 0;
+		
+		try {
+			//3. sql문 준비 /바인딩 /실행
+			String query = "";
+			query += " insert into board ";
+			query += " values (seq_board_no.nextval, ?, ?, 0, sysdate, ?) ";
+			//ORA-00911: invalid character 에러 (자바에서 sql로 쿼리를 날릴때 ; 가 들어있을 경우)
+			
+			System.out.println(query);// 확인용
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, boardVo.getTitle());
+			pstmt.setString(2, boardVo.getContent());
+			pstmt.setInt(3, boardVo.getUser_no());
+			
+			count = pstmt.executeUpdate();
+			
+			//4.결과처리
+			
+			System.out.println("[" + count + "건 등록되었습니다.]");
+			 
+		}catch(SQLException e) {
+			System.out.println("error:" + e);
+		}
+		close();
+		
+		return count;
+	}
+	
+	
+	
+	
 }

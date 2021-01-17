@@ -8,13 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.BoardDao;
-import com.javaex.dao.GuestBookDao;
 import com.javaex.util.WebUtil;
 import com.javaex.vo.BoardVo;
-import com.javaex.vo.GuestBookVo;
 
 
 @WebServlet("/bc")
@@ -101,7 +98,31 @@ public class BoardController extends HttpServlet {
 			//삭제 실패시는 염두에 두지 않음 --> 본인것만 삭제 가능하게 , 본인글 삭제 버튼만 나오게 만들예정	
 			WebUtil.rdirecte(request, response, "/mysite2/bc?action=list");// WebUtil사용
 					
+		}else if("addList".equals(action)) {
+			System.out.println("게시판 등록");
+			
+			//제목, 내용 
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			int no = Integer.parseInt(request.getParameter("userNo"));
+			
+			//vo로 묶음
+			BoardVo boardVo = new BoardVo(title,content,no);
+			
+			BoardDao boardDao = new BoardDao();
+			
+			//저장
+			boardDao.boardInsert(boardVo);
+			System.out.println(boardVo);
+			
+			WebUtil.rdirecte(request, response, "/mysite2/bc?action=list");// WebUtil사용
+
+			
 		}
+		
+		
+		
+		
 		
 		
 }

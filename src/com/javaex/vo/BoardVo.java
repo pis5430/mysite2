@@ -14,6 +14,12 @@ public class BoardVo {
 	//생산자
 	public BoardVo() {}
 	
+	public BoardVo(String title, String content, int user_no) {
+		this.title = title;
+		this.content = content;
+		this.user_no = user_no;
+	}
+	
 	public BoardVo(int no, String title,String name, String content, int hit, String date, int user_no) {
 		super();
 		this.no = no;
@@ -24,6 +30,7 @@ public class BoardVo {
 		this.date = date;
 		this.user_no = user_no;
 	}
+	
 
 	public int getNo() {
 		return no;
