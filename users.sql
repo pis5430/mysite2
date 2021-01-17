@@ -86,11 +86,11 @@ drop sequence seq_board_no;
 -- 조회수 초기값 0 , 글 확인할때마다 hit+1로 1씩 추가되게
 insert into board
 values (seq_board_no.nextval, 
-        '타이틀', 
-        '내용' , 
+        'sql추가 테스트', 
+        'sql추가 테스트' , 
         0 , 
         sysdate,
-        1);
+        6);
         
 --게시물 조회수 업데이트
 --update문
@@ -117,5 +117,12 @@ select  b.no 게시물번호,
 from board b , users u
 where b.user_no = u.no;
 
+
+--게시물 업데이트
+--update문
+update board
+set title = '제목' ,
+    content = '내용'   
+where no = 9;
 
 commit;

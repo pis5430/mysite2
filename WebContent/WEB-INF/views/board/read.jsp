@@ -87,11 +87,11 @@
 							</c:when>
 						</c:choose>
 						
-						<a id="btn_modify" href="">목록</a>
+						<a id="btn_modify" href="/mysite2/bc?action=list">목록</a>
 						<!-- 로그인한 사람의 user_no와 작성한 사람의 user_no가 일치할때 수정버튼 생겨나기  bno게시판번호-->
-						<input type="text" name="no" value="${authUser.no}" >
-						<input type="text" name="user_no" value="${boardVo.user_no}" >
-						<input type="text" name="bno" value="${boardVo.no}" >
+						<input type="hidden" name="no" value="${authUser.no}" >
+						<input type="hidden" name="user_no" value="${boardVo.user_no}" >
+						<input type="hidden" name="bno" value="${boardVo.no}" >
 						
 					</form>
 	                <!-- //form -->
