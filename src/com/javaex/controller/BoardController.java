@@ -161,28 +161,22 @@ public class BoardController extends HttpServlet {
 			
 			System.out.println("게시판 제목 검색 리스트 출력");
 			
-			//검색 문자 가져오기
+			//검색 문자 가져오기(name="search")
 			String search = request.getParameter("search");
 			
 			//리스트 출력
 			BoardDao boardDao = new BoardDao();
 			//List<BoardVo> boardList = boardDao.getBoradList();
 			
-			List<BoardVo> bsList = boardDao.getBoradSeardhList(search);
+			List<BoardVo> bList = boardDao.getBoradSeardhList(search);
 					
 			//데이터 전달
-			request.setAttribute("bsList", bsList);
+			request.setAttribute("bList", bList); 
+			//리스트 출력할때 bList로 이름 맞춰주기, 검색했을때도 출력되고 , 그냥 list도 출력되야함.
 			
 			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
 			WebUtil.forward(request, response, "/WEB-INF/views/board/list.jsp");
-
 			
-			
-			
-			
-			
-
-			WebUtil.rdirecte(request, response, "/mysite2/bc?action=list");// WebUtil사용		
 		}
 		
 		

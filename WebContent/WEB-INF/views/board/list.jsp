@@ -38,10 +38,11 @@
 
 			<div id="board">
 				<div id="list">
-					<form action="search" method="get">
+					<form action="/mysite2/bc" method="get">
 						<div class="form-group text-right">
-							<input type="text">
-							<button type="submit" id=btn_search name="search">검색</button>
+							<input type="text" name="search"><!-- 검색어 입력값 -->
+							<button type="submit" id=btn_search>검색</button>
+							<input name="action" value="search">
 						</div>
 					</form>
 					<table >

@@ -372,7 +372,8 @@ public class BoardDao {
 		return boardVo;
 	}
 	
-	//검색기능
+	//검색기능(메소드 오버로딩으로도 할수 있음 ) --> 리스트 가져오는 메소드와 다른점은
+	// like ? 
 	public List<BoardVo> getBoradSeardhList(String search){
 		
 		List<BoardVo> bsList = new ArrayList<BoardVo>();
@@ -408,7 +409,7 @@ public class BoardDao {
 			query += "        b.user_no ";
 			query += " from board b , users u ";
 			query += " where b.user_no = u.no "; 
-			query += " and title like ? ";
+			query += " and b.title like ? ";
 			query += " order by b.reg_date desc "; //정렬추가 게시판 정렬순서 작성순서대로
 			
 			String str = "%" + search + "%";
@@ -432,7 +433,7 @@ public class BoardDao {
 				
 				BoardVo vo = new BoardVo(no,title,name ,content ,hit, reg_date,user_no);
 				bsList.add(vo);
-				System.out.println(bsList);
+				System.out.println("bList :" + bsList);
 			}
 				
 		}catch(SQLException e) {
