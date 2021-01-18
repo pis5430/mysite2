@@ -143,8 +143,10 @@ public class BoardController extends HttpServlet {
 			//title, content
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
+			//content값을 못받아오고 있음 
 			
 			BoardVo boardVo = new BoardVo(no,title,content);
+			System.out.println(boardVo);
 							
 			//dao
 			BoardDao boardDao = new BoardDao();
@@ -155,6 +157,16 @@ public class BoardController extends HttpServlet {
 			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
 			WebUtil.rdirecte(request, response, "/mysite2/bc?action=list");// WebUtil사용
 			
+		}else if("search".equals(action)) {
+			
+			
+			
+			
+			
+			
+			
+
+			WebUtil.rdirecte(request, response, "/mysite2/bc?action=list");// WebUtil사용		
 		}
 		
 		

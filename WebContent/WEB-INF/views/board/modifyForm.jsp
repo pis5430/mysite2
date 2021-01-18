@@ -74,7 +74,7 @@
 					
 						<!-- 내용 -->
 						<div class="form-group">
-							<textarea id="txt-content">${bVo.content}</textarea>
+							<textarea id="txt-content" name="content">${bVo.content}</textarea>
 						</div>
 						
 						<a id="btn_cancel" href="/mysite2/bc?action=list">취소</a>
@@ -82,7 +82,7 @@
 						
 						<input type="hidden" name="no" value="${bVo.no }" >
 						<input type="hidden" name="user_no" value="${bVo.user_no }" >
-						<input name="hidden" value="d_modify">
+						<input type="hidden" name="action" value="d_modify">
 						
 					</form>
 	                <!-- //form -->
