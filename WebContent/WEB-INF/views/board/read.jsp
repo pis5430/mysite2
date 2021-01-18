@@ -17,16 +17,10 @@
 	<div id="wrap">
 
 		<!-- header + navi 공통으로 옮겼음 -->		
-		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 
-		<div id="aside">
-			<h2>게시판</h2>
-			<ul>
-				<li><a href="">일반게시판</a></li>
-				<li><a href="">댓글게시판</a></li>
-			</ul>
-		</div>
-		<!-- //aside -->
+		<!-- 게시판 aside 공통으로 옮겼음 -->
+		<c:import url="/WEB-INF/views/include/aside.jsp"></c:import>
 
 		<div id="content">
 
@@ -77,15 +71,9 @@
 							</span>
 						</div>
 						<!-- 수정 버튼이 작성한 사람에게만 보이도록 -->
-						<c:choose>
-							<c:when test="${empty sessionScope.authUser}">
-								 <!-- 로그인 안되어 있을때  아무것도 안보임-->
-													
-							</c:when>
-							<c:when test="${authUser.no == boardVo.user_no}">
+							<c:if test="${authUser.no == boardVo.user_no}">
 						        <a id="btn_modify" href="/mysite2/bc?action=d_modifyForm&no=${boardVo.no}">수정</a>
-							</c:when>
-						</c:choose>
+							</c:if>
 						
 						<a id="btn_modify" href="/mysite2/bc?action=list">목록</a>
 						<!-- 로그인한 사람의 user_no와 작성한 사람의 user_no가 일치할때 수정버튼 생겨나기  bno게시판번호-->
@@ -104,7 +92,7 @@
 		<div class="clear"></div>
 
 		<!-- footer 공통으로 옮겼음 -->		
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 	</div>
 	<!-- //wrap -->
 

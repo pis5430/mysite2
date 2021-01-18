@@ -372,4 +372,77 @@ public class BoardDao {
 		return boardVo;
 	}
 	
+	//검색기능
+	public List<BoardVo> getBoradSeardhList(String search){
+		
+		List<BoardVo> bsList = new ArrayList<BoardVo>();
+		
+		//db접속
+		getConnection();	
+		
+		try {
+			
+			String query = "";
+			
+			//3.sql문 준비 / 바인딩 실행 (* 는 왠만하면 쓰지 않기)
+			
+			//select  b.no 게시물번호,
+	        //b.title 제목,
+	        //u.name 이름,
+	        //b.content 내용,
+	        //b.hit 조회수,
+	        //b.reg_date 등록일,
+	        //b.user_no 회원번호
+	        //from board b , users u
+	        //where b.user_no = u.no
+	        //and title like '%수%'
+	        //order by b.reg_date desc;
+			
+			//name은 users에서 가져와야하고 pk와 fk 일치 확인 
+			query += " select b.no, ";
+			query += "        b.title, ";
+			query += "        u.name, ";
+			query += "        b.content, ";
+			query += "        b.hit, ";
+			query += "        to_char(b.reg_date,'YYYY-MM-DD HH24:MI') reg_date, "; //표시형식 변경
+			query += "        b.user_no ";
+			query += " from board b , users u ";
+			query += " where b.user_no = u.no "; 
+			query += " and title like ? ";
+			query += " order by b.reg_date desc "; //정렬추가 게시판 정렬순서 작성순서대로
+			
+			String str = "%" + search + "%";
+			
+			
+			System.out.println(query);
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, str);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				int no = rs.getInt("no");
+				String title = rs.getString("title");
+				String name = rs.getString("name");
+				String content = rs.getString("content");
+				int hit = rs.getInt("hit");
+				String reg_date = rs.getString("reg_date");
+				int user_no = rs.getInt("user_no");
+
+				
+				BoardVo vo = new BoardVo(no,title,name ,content ,hit, reg_date,user_no);
+				bsList.add(vo);
+				System.out.println(bsList);
+			}
+				
+		}catch(SQLException e) {
+			System.out.println("error:" + e );
+		}
+	
+		//자원정리
+		close();
+				
+		return bsList;
+	}
+	
 }

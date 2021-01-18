@@ -143,7 +143,7 @@ public class BoardController extends HttpServlet {
 			//title, content
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
-			//content값을 못받아오고 있음 
+			//content값을 못받아오고 있음 -->수정폼에서 textarea에 name값을 안줘서 문제생김
 			
 			BoardVo boardVo = new BoardVo(no,title,content);
 			System.out.println(boardVo);
@@ -159,7 +159,23 @@ public class BoardController extends HttpServlet {
 			
 		}else if("search".equals(action)) {
 			
+			System.out.println("게시판 제목 검색 리스트 출력");
 			
+			//검색 문자 가져오기
+			String search = request.getParameter("search");
+			
+			//리스트 출력
+			BoardDao boardDao = new BoardDao();
+			//List<BoardVo> boardList = boardDao.getBoradList();
+			
+			List<BoardVo> bsList = boardDao.getBoradSeardhList(search);
+					
+			//데이터 전달
+			request.setAttribute("bsList", bsList);
+			
+			//포워드를 유틸에 넣어서 포워드 메소드로 이용하기
+			WebUtil.forward(request, response, "/WEB-INF/views/board/list.jsp");
+
 			
 			
 			

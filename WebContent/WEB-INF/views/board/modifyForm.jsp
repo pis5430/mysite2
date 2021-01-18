@@ -16,16 +16,10 @@
 	<div id="wrap">
 					
 		<!-- header + navi 공통으로 옮겼음 -->		
-		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
-
-		<div id="aside">
-			<h2>게시판</h2>
-			<ul>
-				<li><a href="">일반게시판</a></li>
-				<li><a href="">댓글게시판</a></li>
-			</ul>
-		</div>
-		<!-- //aside -->
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
+		
+		<!-- 게시판 aside 공통으로 옮겼음 -->
+		<c:import url="/WEB-INF/views/include/aside.jsp"></c:import>
 
 
 		<div id="content">
@@ -95,7 +89,7 @@
 		<div class="clear"></div>
 
 		<!-- footer 공통으로 옮겼음 -->		
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 	</div>
 	<!-- //wrap -->
 

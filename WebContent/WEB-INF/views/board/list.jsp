@@ -16,16 +16,10 @@
 	<div id="wrap">
 
 		<!-- header + navi 공통으로 옮겼음 -->		
-		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 
-		<div id="aside">
-			<h2>게시판</h2>
-			<ul>
-				<li><a href="">일반게시판</a></li>
-				<li><a href="">댓글게시판</a></li>
-			</ul>
-		</div>
-		<!-- //aside -->
+		<!-- 게시판 aside 공통으로 옮겼음 -->
+		<c:import url="/WEB-INF/views/include/aside.jsp"></c:import>
 
 		<div id="content">
 
@@ -44,10 +38,10 @@
 
 			<div id="board">
 				<div id="list">
-					<form action="" method="">
+					<form action="search" method="get">
 						<div class="form-group text-right">
 							<input type="text">
-							<button type="submit" id=btn_search>검색</button>
+							<button type="submit" id=btn_search name="search">검색</button>
 						</div>
 					</form>
 					<table >
@@ -71,7 +65,7 @@
 						</thead>
 						<tbody>
 						<!-- 반복문 처리  -->
-						<c:forEach items="${bList}" var="vo" varStatus="status">
+						<c:forEach items="${bList}" var="vo">
 							<tr>
 								<td>${vo.no}</td>
 								<td class="text-left"><a href="/mysite2/bc?action=read&no=${vo.no}">${vo.title}</a></td>
@@ -79,16 +73,11 @@
 								<td>${vo.hit}</td>
 								<td>${vo.date}</td>
 								<td>
-									<!-- 로그인시에만 보이도록  -->
-									<c:choose>
-										<c:when test="${empty sessionScope.authUser}">
-										      <!-- 로그인 안되어 있을때  아무것도 안보임-->
-													
-										</c:when>
-										<c:when test="${authUser.no == vo.user_no}">
+									<!-- 로그인시에만 보이도록 if문으로 변경 (더 간결한 코드) -->
+										<c:if test="${authUser.no == vo.user_no}">
 						                 	<a href="/mysite2/bc?action=delete&no=${vo.no}">[삭제]</a>
-										</c:when>
-									</c:choose>
+										</c:if>
+									
 								</td>
 							</tr>
 						</c:forEach>
@@ -115,15 +104,12 @@
 						
 						<div class="clear"></div>
 					</div>					
-						<!-- 로그인시에만 보이도록  -->
-						<c:choose>
-							<c:when test="${empty sessionScope.authUser}">
-							 <!-- 로그인 안되어 있을때  아무것도 안보임-->												
-							</c:when>
-							<c:otherwise>
+						<!-- 로그인시에만 보이도록  if문으로 -->
+
+							<c:if test="${!empty sessionScope.authUser}">
 								<a id="btn_write" href="/mysite2/bc?action=writeForm">글쓰기</a>
-							</c:otherwise>
-						</c:choose>
+							</c:if>
+
 				
 				
 				</div>
@@ -134,8 +120,8 @@
 		<!-- //content  -->
 		<div class="clear"></div>
 
-		<!-- footer 공통으로 옮겼음 -->		
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		<!-- footer -->
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		
 	</div>
 	<!-- //wrap -->
