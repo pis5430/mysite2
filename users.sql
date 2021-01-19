@@ -108,14 +108,16 @@ select  no 게시물번호,
 from board;
 
 select  b.no 게시물번호,
-        u.name 이름,
         b.title 제목,
+        u.name 이름,
         b.content 내용,
         b.hit 조회수,
         b.reg_date 등록일,
         b.user_no 회원번호
 from board b , users u
-where b.user_no = u.no;
+where b.user_no = u.no
+and b.title like '%수%'
+order by b.reg_date desc;
 
 
 --게시물 업데이트
@@ -124,5 +126,15 @@ update board
 set title = '제목' ,
     content = '내용'   
 where no = 9;
+
+--게시물 제목 검색
+select no,
+        title,
+        name,
+        hit,
+        date,
+        
+        
+
 
 commit;
