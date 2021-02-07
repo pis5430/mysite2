@@ -69,8 +69,32 @@ create table board (
     references users(no)
 );
 
+--rboard 테이블 생성
+create table rboard (
+    no number,
+    user_no number not null,
+    title varchar2(500),
+    content varchar2(4000),
+    hit number,
+    reg_date date,
+    group_no number,
+    order_no number,
+    depth number,
+    primary key(no),
+    constraint user_fk foreign key (user_no)
+    references users(no)
+);
+
 select *
-from board;
+from rboard;
+
+--게시물 식별 번호
+--(nocache:재시작시 번호가 점프되는걸 막아주는것, start with가 숫자를 미리 잡아놔서)
+create sequence seq_rboard_no
+increment by 1
+start with 1
+nocache;
+
 
 --게시물 식별 번호
 --(nocache:재시작시 번호가 점프되는걸 막아주는것, start with가 숫자를 미리 잡아놔서)
